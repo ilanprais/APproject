@@ -1,6 +1,8 @@
 #pragma once
+
 #include "Searcher.hpp"
-#include "string"
+#include "SearchResult.hpp"
+#include <string>
 
 namespace searcher {
 

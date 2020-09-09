@@ -12,9 +12,7 @@ namespace searcher {
         std::vector<std::string> directions;
         double value = recursiveSearch(searchable, visited, directions, searchable.getStartElement());
 
-        SearchResult result(directions, value, "DFS");
-
-        return result;
+        return SearchResult(directions, value, "DFS");
     }
 
     template <typename ElementType>
@@ -27,13 +25,13 @@ namespace searcher {
 
         visited.push_back(current);
 
-        double optimalPrice = std::numeric_limits<uint32_t>::max();
+        double optimalCost = std::numeric_limits<uint32_t>::max();
         std::unique_ptr<ElementType> optimalNode = nullptr;
 
         for (auto next : searchable.getAllReachableElements(current)) {
             if (std::find(visited.begin(), visited.end(), current) == visited.end()) {
-                if (double currentPrice = recursiveSearch(searchable, visited, directions, next) < optimalPrice) {
-                    optimalPrice = currentPrice;
+                if (double currentPrice = recursiveSearch(searchable, visited, directions, next) < optimalCost) {
+                    optimalCost = currentPrice;
                     optimalNode = std::make_unique<ElementType>(next);
                 }
             }
@@ -45,6 +43,6 @@ namespace searcher {
 
         directions.push_back(searchable.getDirection(current, *optimalNode);
 
-        return cur.getValue() + optimalPrice;
+        return cur.getValue() + optimalCost;
     }
 }
