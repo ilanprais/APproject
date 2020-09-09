@@ -4,18 +4,18 @@
 
 namespace searcher {
 
-    template <typename IdentifierType, typename ValueType>
+    template <typename IdentifierType>
     class Element {
 
         const IdentifierType m_identifier;
-        const ValueType m_value;
+        const double m_value;
 
         public:
 
-            Element(const IdentifierType& identifier, const ValueType& value);
+            Element(const IdentifierType& identifier, const double value);
 
             const IdentifierType& getIdentifier() const;
 
-            const ValueType& getValue() const;
+            double getValue() const;
     };
 }
