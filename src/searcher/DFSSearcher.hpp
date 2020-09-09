@@ -8,10 +8,10 @@ namespace searcher{
 
         public:
             template <typename ElementType>
-            std::vector<std::string> search(const Searchable<ElementType>& searchable) const;
+            SearchSolution search(const Searchable<ElementType>& searchable) const;
 
         private:
             template <typename ElementType>
-            std::vector<std::string> recursiveSearch(std::vector<ElementType>& visited, std::vector<std::string>& directions, const Searchable<ElementType>& searchable, const ElementType& elm);
+            uint32_t recursiveSearch(std::vector<ElementType>& visited, std::vector<std::string>& directions, const Searchable<ElementType>& searchable, const ElementType& elm);
     };
 }
