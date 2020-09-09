@@ -4,48 +4,47 @@
 #include <limits>
 
 
-namespace searcher{
+namespace searcher {
     
     template <typename ElementType>
-    SearchSolution DFSSearcher::search(const Searchable<ElementType>& searchable) const{
+    SearchResult DFSSearcher::search(const Searchable<ElementType>& searchable) const {
         std::vector<ElementType> visited;
         std::vector<std::string> directions;
-        uint32_t value = recursiveSearch(visited, directions, searchable, searchable.getStartElement());
+        double value = recursiveSearch(searchable, visited, directions, searchable.getStartElement());
 
-        SearchSolution solution(directions, value);
+        SearchResult result(directions, value, "DFS");
 
-        return solution;
+        return result;
     }
 
     template <typename ElementType>
-     uint32_t DFSSearcher::recursiveSearch(std::vector<ElementType>& visited, std::vector<std::string>& directions, const Searchable<ElementType>& searchable, const ElementType& cur){
-       
-         if(cur == searchable.getEndElement()){
-             return searchable.getEndElement().getValue();
-         }
-         
-         visited.push_back(cur);
+    double DFSSearcher::recursiveSearch(const Searchable<ElementType>& searchable, std::vector<ElementType>& visited,
+        std::vector<std::string>& directions, const ElementType& current){
+    
+        if (current == searchable.getEndElement()) {
+            return searchable.getEndElement().getValue();
+        }
 
-         uint32_t optimalPrice = std::numeric_limits<uint32_t>::max();
-         std::unique_ptr<ElementType> optimalNode = nullptr;
+        visited.push_back(current);
 
-         for(auto next : searchable.getAllReachableElements(elm)){
-            if(std::find(visited.begin(), visited.end(), elm) == visited.end()){
-                if(uint32_t curPrice = recursiveSearch(visited, directions, searchable, next) < optimalPrice){
-                    optimalPrice = curPrice;
+        double optimalPrice = std::numeric_limits<uint32_t>::max();
+        std::unique_ptr<ElementType> optimalNode = nullptr;
+
+        for (auto next : searchable.getAllReachableElements(current)) {
+            if (std::find(visited.begin(), visited.end(), current) == visited.end()) {
+                if (double currentPrice = recursiveSearch(searchable, visited, directions, next) < optimalPrice) {
+                    optimalPrice = currentPrice;
                     optimalNode = std::make_unique<ElementType>(next);
                 }
             }
-         }
+        }
 
-         if(optimalNode = nullptr){
-             return std::numeric_limits<uint32_t>::max();
-         }
+        if (optimalNode = nullptr) {
+            return std::numeric_limits<uint32_t>::max();
+        }
 
-         directions.push_back(searchable.getDirection(cur, *optimalNode));
+        directions.push_back(searchable.getDirection(current, *optimalNode);
 
-         return cur.getValue() + optimalPrice;
-
-     }
-
+        return cur.getValue() + optimalPrice;
+    }
 }
