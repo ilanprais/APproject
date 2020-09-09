@@ -8,8 +8,12 @@ namespace searcher {
     
     template <typename ElementType>
     SearchResult DFSSearcher::search(const Searchable<ElementType>& searchable) const {
+        // this vector will hold the visited elements
         std::vector<ElementType> visited;
+        // this vector will hold the directions of the optimal way from the start element to the end element
         std::vector<std::string> directions;
+        
+        // getting the optimal cost of the way from the start element to the end element
         double value = recursiveSearch(searchable, visited, directions, searchable.getStartElement());
 
         return SearchResult(directions, value, "DFS");
@@ -28,11 +32,11 @@ namespace searcher {
         double optimalCost = std::numeric_limits<uint32_t>::max();
         std::unique_ptr<ElementType> optimalNode = nullptr;
 
-        for (auto next : searchable.getAllReachableElements(current)) {
-            if (std::find(visited.begin(), visited.end(), current) == visited.end()) {
-                if (double currentPrice = recursiveSearch(searchable, visited, directions, next) < optimalCost) {
+        for (auto reachable : searchable.getAllReachableElements(current)) {
+            if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
+                if (double currentPrice = recursiveSearch(searchable, visited, directions, reachable) < optimalCost) {
                     optimalCost = currentPrice;
-                    optimalNode = std::make_unique<ElementType>(next);
+                    optimalNode = std::make_unique<ElementType>(reachable);
                 }
             }
         }
