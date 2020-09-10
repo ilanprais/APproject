@@ -9,6 +9,7 @@ namespace searcher {
     SearchResult DFSSearcher::search(const Searchable<ElementType>& searchable) const {
         // this vector will hold the visited elements
         std::vector<ElementType> visited;
+
         // this vector will hold the directions of the optimal way from the start element to the end element
         std::vector<std::string> directions;
         
@@ -29,7 +30,7 @@ namespace searcher {
         visited.push_back(current);
 
         double optimalCost = std::numeric_limits<uint32_t>::max();
-        ElementType *optimalNode = nullptr;
+        ElementType *optimalNode = &current;
 
         for (auto reachable : searchable.getAllReachableElements(current)) {
             if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
@@ -40,7 +41,7 @@ namespace searcher {
             }
         }
 
-        if (optimalNode = nullptr) {
+        if (*optimalNode == current) {
             return std::numeric_limits<uint32_t>::max();
         }
 
