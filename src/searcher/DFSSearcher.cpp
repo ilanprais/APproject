@@ -1,6 +1,5 @@
 #include "DFSSearcher.hpp"
 #include <algorithm>
-#include <memory>
 #include <limits>
 
 
@@ -30,13 +29,13 @@ namespace searcher {
         visited.push_back(current);
 
         double optimalCost = std::numeric_limits<uint32_t>::max();
-        std::unique_ptr<ElementType> optimalNode = nullptr;
+        ElementType *optimalNode = nullptr;
 
         for (auto reachable : searchable.getAllReachableElements(current)) {
             if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
                 if (double currentPrice = recursiveSearch(searchable, visited, directions, reachable) < optimalCost) {
                     optimalCost = currentPrice;
-                    optimalNode = std::make_unique<ElementType>(reachable);
+                    optimalNode = &reachable;
                 }
             }
         }
