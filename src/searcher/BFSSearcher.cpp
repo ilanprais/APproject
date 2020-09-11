@@ -29,7 +29,7 @@ namespace searcher {
             // dequeuing an element
             auto current = queue.pop();
 
-            // in case that the dequeued element is the end element, then finishing the search
+            //if reached the end of the path, backtrace to recover the best path
             if (current == searchable.getEndElement()) {
                 // getting the optimal cost of the path, according the optimal paths that were calculated before
                 optimalCost = optimalPathInfo[current].first;
