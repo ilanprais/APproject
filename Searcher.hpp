@@ -4,11 +4,11 @@
 
 namespace searcher {
 
+    template <typename SearchResultType, typename ElementType>
     class Searcher {
 
         public:
         
-            template <typename ResultType, typename ElementType>
-            ResultType search(const Searchable<ElementType>& searchable) const;
+            virtual SearchResultType search(const Searchable<ElementType>& searchable) const = 0;
     };
 }

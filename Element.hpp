@@ -10,10 +10,16 @@ namespace searcher {
 
         public:
 
-            Element(const IdentifierType& identifier, const double value);
+            Element(const IdentifierType& identifier, const double value)
+            : m_identifier(identifier),
+            m_value(value) {}
 
-            const IdentifierType& getIdentifier() const;
+            const IdentifierType& getIdentifier() const {
+                return m_identifier;
+            }
 
-            double getValue() const;
+            double getValue() const {
+                return m_value;
+            }
     };
 }

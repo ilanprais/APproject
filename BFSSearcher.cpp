@@ -7,7 +7,7 @@
 namespace searcher {
 
     template <typename ElementType>
-    SearchResult BFSSearcher::search(const Searchable<ElementType>& searchable) const {
+    SearchResult BFSSearcher<ElementType>::search(const Searchable<ElementType>& searchable) const {
         // this vector will hold the visited elements
         std::vector<ElementType> visited;
         // this queue will be used for the BFS algorithm

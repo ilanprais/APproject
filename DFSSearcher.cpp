@@ -6,7 +6,7 @@
 namespace searcher {
     
     template <typename ElementType>
-    SearchResult DFSSearcher::search(const Searchable<ElementType>& searchable) const {
+    SearchResult DFSSearcher<ElementType>::search(const Searchable<ElementType>& searchable) const {
         // this vector will hold the visited elements
         std::vector<ElementType> visited;
 
@@ -20,7 +20,7 @@ namespace searcher {
     }
 
     template <typename ElementType>
-    double DFSSearcher::recursiveSearch(const Searchable<ElementType>& searchable, std::vector<ElementType>& visited,
+    double DFSSearcher<ElementType>::recursiveSearch(const Searchable<ElementType>& searchable, std::vector<ElementType>& visited,
         std::vector<std::string>& directions, const ElementType& current){
     
         if (current == searchable.getEndElement()) {

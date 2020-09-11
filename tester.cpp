@@ -18,10 +18,10 @@ int main() {
     Graph graph(gMatrix, std::pair<uint32_t, uint32_t>(0, 0), std::pair<uint32_t, uint32_t>(2, 2));
 
     // creating a BFS searcher object
-    BFSSearcher BFS = BFSSearcher();
+    BFSSearcher<graphElement> BFS = BFSSearcher<graphElement>();
 
     // searching on the graph
-    auto result = BFS.search(graph);
+    SearchResult result = BFS.search(graph);
 
     // printing the search result
     std::cout << result.toString();
