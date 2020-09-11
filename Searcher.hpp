@@ -10,6 +10,6 @@ namespace searcher {
         public:
         
             template <typename ResultType, typename ElementType>
-            ResultType search(const Searchable<ElementType>& searchable) const = 0;
+            ResultType search(const Searchable<ElementType>& searchable) const;
     };
 }

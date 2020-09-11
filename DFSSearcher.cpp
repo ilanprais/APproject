@@ -45,8 +45,8 @@ namespace searcher {
             return std::numeric_limits<uint32_t>::max();
         }
 
-        directions.push_back(searchable.getDirection(current, *optimalNode);
+        directions.push_back(searchable.getDirection(current, *optimalNode));
 
-        return cur.getValue() + optimalCost;
+        return current.getValue() + optimalCost;
     }
 }

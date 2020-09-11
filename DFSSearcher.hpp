@@ -11,7 +11,7 @@ namespace searcher {
         public:
 
             template <typename ElementType>
-            SearchResult search(const Searchable<ElementType>& searchable) const override;
+            SearchResult search(const Searchable<ElementType>& searchable) const;
 
         private:
 

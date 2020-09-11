@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 namespace searcher {
 
     template <typename IdentifierType>
