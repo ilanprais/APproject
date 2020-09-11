@@ -58,8 +58,9 @@ namespace searcher {
                         optimalPathInfo[reachable] = std::pair(reachable.getValue() + optimalPathInfo[current].first, current);
                 }
             }  
-
         }
+
+        return SearchResult(directions, optimalCost, "BFS");
     }
 }
 
