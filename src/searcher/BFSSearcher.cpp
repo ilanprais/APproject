@@ -42,8 +42,6 @@ namespace searcher {
                     // moving to the previous element
                     *temp = optimalPathInfo[*temp].second;
                 }
-
-                return SearchResult(directions, optimalCost, "BFS");
             }
 
             // getting all of the reachable elements of the dequeued element
