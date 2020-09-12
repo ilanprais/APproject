@@ -5,21 +5,20 @@
 
 namespace searcher {
 
-    typedef std::pair<uint32_t, uint32_t> pair;
-
+    template <typename IdentifierType>
     class Element {
 
-        const pair m_location;
-        const double m_value;
+        IdentifierType m_identifier;
+        double m_value;
 
         public:
 
-            Element(const pair& location, const double value)
-            : m_location(location),
+            Element(const IdentifierType& identifier, const double value)
+            : m_identifier(identifier),
             m_value(value) {}
 
-            const pair& getLocation() const {
-                return m_location;
+            const IdentifierType& getIdentifier() const {
+                return m_identifier;
             }
 
             double getValue() const {
@@ -27,11 +26,15 @@ namespace searcher {
             }
 
             bool operator==(const Element& other) const {
-                return m_location == other.m_location && m_value == other.m_value;
+                return m_identifier == other.m_identifier && m_value == other.m_value;
             }
 
             bool operator!=(const Element& other) const {
                 return !(*this == other);
+            }
+
+            bool operator<(const Element& other) const {
+                return m_value < other.m_value;
             }
     };
 }
