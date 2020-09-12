@@ -3,7 +3,7 @@
 #include "Searcher.hpp"
 #include "SearchResult.hpp"
 #include <queue>
-#include <map>
+#include <unordered_map>
 #include <utility>
 #include <algorithm>
 
@@ -21,7 +21,9 @@ namespace searcher {
                 std::queue<ElementType> queue;
                 // this map will hold for each element pair with the cost of the optimal path from the start element to the element
                 // and the previous element in this path
-                std::map<ElementType, std::pair<double, ElementType>> optimalPathInfo;
+
+                std::unordered_map<ElementType, ElementType> optimalPathsPrevElements;
+                std::unordered_map<ElementType, double> optimalPathsCosts;
 
                 // this vector will hold the directions of the optimal way from the start element to the end element
                 std::vector<std::string> directions;
@@ -40,15 +42,15 @@ namespace searcher {
                     // in case that the dequeued element is the end element, then finishing the search
                     if (current == searchable.getEndElement()) {
                         // getting the optimal cost of the path, according the optimal paths that were calculated before
-                        optimalCost = optimalPathInfo[current].first;
+                        optimalCost = optimalPathsCosts.at(current);
 
                         // iterating over the elements, and initializing the directions vector according to the optimal path
                         ElementType *temp = &current;
                         while (*temp != searchable.getStartElement()) {
                             // adding a direction between two elements in the optimal path 
-                            directions.insert(directions.begin(), searchable.getDirection(optimalPathInfo[*temp].second, *temp));
+                            directions.insert(directions.begin(), searchable.getDirection(optimalPathsPrevElements.at(*temp), *temp));
                             // moving to the previous element
-                            *temp = optimalPathInfo[*temp].second;
+                            *temp = optimalPathsPrevElements.at(*temp);
                         }
                     }
 
@@ -59,13 +61,15 @@ namespace searcher {
                         if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
                             visited.push_back(reachable);
                             queue.push(reachable);
-                            optimalPathInfo[reachable] = std::pair<double, ElementType>(reachable.getValue() + optimalPathInfo[current].first, current);
+                            optimalPathsPrevElements.emplace(reachable, current);
+                            optimalPathsCosts.emplace(reachable, reachable.getValue() + optimalPathsCosts.at(current));
                         }
                         // if the reachable element has been visited already, then checking if the path to this reachable element
                         // from the current element is more optimal than the current optimal path to the reachable, and if it is,
                         // then updating it accordingly 
-                        else if (reachable.getValue() + optimalPathInfo[current].first < optimalPathInfo[reachable].first) {
-                            optimalPathInfo[reachable] = std::pair<double, ElementType>(reachable.getValue() + optimalPathInfo[current].first, current);
+                        else if (reachable.getValue() + optimalPathsCosts.at(current) < optimalPathsCosts.at(reachable)) {
+                            optimalPathsPrevElements.emplace(reachable, current);
+                            optimalPathsCosts.emplace(reachable, reachable.getValue() + optimalPathsCosts.at(current));
                         }
                     }  
                 }

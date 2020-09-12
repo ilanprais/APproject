@@ -1,25 +1,37 @@
 #pragma once
 
+#include <utility>
+#include <cstdint>
+
 namespace searcher {
 
-    template <typename IdentifierType>
+    typedef std::pair<uint32_t, uint32_t> pair;
+
     class Element {
 
-        const IdentifierType m_identifier;
+        const pair m_location;
         const double m_value;
 
         public:
 
-            Element(const IdentifierType& identifier, const double value)
-            : m_identifier(identifier),
+            Element(const pair& location, const double value)
+            : m_location(location),
             m_value(value) {}
 
-            const IdentifierType& getIdentifier() const {
-                return m_identifier;
+            const pair& getLocation() const {
+                return m_location;
             }
 
             double getValue() const {
                 return m_value;
+            }
+
+            bool operator==(const Element& other) const {
+                return m_location == other.m_location && m_value == other.m_value;
+            }
+
+            bool operator!=(const Element& other) const {
+                return !(*this == other);
             }
     };
 }

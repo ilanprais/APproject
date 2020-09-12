@@ -16,7 +16,7 @@ namespace searcher {
                 // this vector will hold the visited elements
                 std::vector<ElementType> visited;
 
-                // this vector will hold the directions of the optimal way from the start element to the end element
+                // this vector will hold the directions of the optimal path from the start element to the end element
                 std::vector<std::string> directions;
                 
                 // getting the optimal cost of the way from the start element to the end element
@@ -28,7 +28,7 @@ namespace searcher {
         private:
 
             double recursiveSearch(const Searchable<ElementType>& searchable, std::vector<ElementType>& visited,
-                std::vector<std::string>& directions, const ElementType& current){
+                std::vector<std::string>& directions, const ElementType& current) const {
             
                 if (current == searchable.getEndElement()) {
                     return searchable.getEndElement().getValue();
@@ -37,7 +37,7 @@ namespace searcher {
                 visited.push_back(current);
 
                 double optimalCost = std::numeric_limits<uint32_t>::max();
-                ElementType *optimalNode = &current;
+                ElementType *optimalNode = nullptr;
 
                 for (auto reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
@@ -48,7 +48,7 @@ namespace searcher {
                     }
                 }
 
-                if (*optimalNode == current) {
+                if (optimalNode == nullptr) {
                     return std::numeric_limits<uint32_t>::max();
                 }
 

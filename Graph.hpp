@@ -8,10 +8,7 @@
 
 namespace searcher {
 
-    typedef std::pair<uint32_t, uint32_t> pair;
-    typedef Element<pair> graphElement;
-
-    class Graph : public AbstractSearchable<graphElement> {
+    class Graph : public AbstractSearchable<Element> {
 
         const matrix::Matrix m_graphMatrix;
 
@@ -19,8 +16,8 @@ namespace searcher {
 
             Graph(const matrix::Matrix& graphMatrix, const pair& startLocation, const pair& endLocation);
             
-            std::vector<graphElement> getAllReachableElements(const graphElement& current) const override;
+            std::vector<Element> getAllReachableElements(const Element& current) const override;
 
-            std::string getDirection(const graphElement& origin, const graphElement& destination) const override;
+            std::string getDirection(const Element& origin, const Element& destination) const override;
     };
 }
