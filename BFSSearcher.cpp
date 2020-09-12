@@ -7,7 +7,7 @@
 namespace searcher {
 
     template <typename ElementType>
-    SearchResult BFSSearcher::search(const Searchable<ElementType>& searchable) const {
+    SearchResult BFSSearcher<ElementType>::search(const Searchable<ElementType>& searchable) const {
         // this vector will hold the visited elements
         std::vector<ElementType> visited;
         // this queue will be used for the BFS algorithm
@@ -51,13 +51,13 @@ namespace searcher {
                 if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
                     visited.push_back(reachable);
                     queue.push(reachable);
-                    optimalPathInfo[reachable] = std::pair(reachable.getValue() + optimalPathInfo[current].first, current);
+                    optimalPathInfo[reachable] = std::pair<double, ElementType>(reachable.getValue() + optimalPathInfo[current].first, current);
                 }
                 // if the reachable element has been visited already, then checking if the path to this reachable element
                 // from the current element is more optimal than the current optimal path to the reachable, and if it is,
                 // then updating it accordingly 
                 else if (reachable.getValue() + optimalPathInfo[current].first < optimalPathInfo[reachable].first) {
-                    optimalPathInfo[reachable] = std::pair(reachable.getValue() + optimalPathInfo[current].first, current);
+                    optimalPathInfo[reachable] = std::pair<double, ElementType>(reachable.getValue() + optimalPathInfo[current].first, current);
                 }
             }  
         }
