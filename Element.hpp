@@ -8,8 +8,8 @@ namespace searcher {
     template <typename IdentifierType>
     class Element {
 
-        IdentifierType m_identifier;
-        double m_value;
+        const IdentifierType m_identifier;
+        const double m_value;
 
         public:
 
