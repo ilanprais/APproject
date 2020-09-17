@@ -17,28 +17,40 @@ namespace searcher {
 
         // adding the element above the current element, if exists
         if (rowIdx > 0) {
-            reachables.push_back(graphElement(pair(rowIdx - 1, colIdx), m_graphMatrix(rowIdx - 1, colIdx)));
+            // checking if the element above actually exists
+            if (m_graphMatrix(rowIdx - 1, colIdx) != 0) {
+                reachables.push_back(graphElement(pair(rowIdx - 1, colIdx), m_graphMatrix(rowIdx - 1, colIdx)));
+            }
         }
 
         // adding the element below the current element, if exists
         if (rowIdx < m_graphMatrix.getHeight() - 1) {
-            reachables.push_back(graphElement(pair(rowIdx + 1, colIdx), m_graphMatrix(rowIdx + 1, colIdx)));
+            // checking if the element above actually exists
+            if (m_graphMatrix(rowIdx + 1, colIdx) != 0) {
+                reachables.push_back(graphElement(pair(rowIdx + 1, colIdx), m_graphMatrix(rowIdx + 1, colIdx)));
+            }
         }
 
         // adding the element in the left of the current element, if exists
         if (colIdx > 0) {
-            reachables.push_back(graphElement(pair(rowIdx, colIdx - 1), m_graphMatrix(rowIdx, colIdx - 1)));
+            // checking if the element above actually exists
+            if (m_graphMatrix(rowIdx, colIdx - 1) != 0) {
+                reachables.push_back(graphElement(pair(rowIdx, colIdx - 1), m_graphMatrix(rowIdx, colIdx - 1)));
+            }
         }
 
         // adding the element in the right of the current element, if exists
         if (colIdx < m_graphMatrix.getWidth() - 1) {
-            reachables.push_back(graphElement(pair(rowIdx, colIdx + 1), m_graphMatrix(rowIdx, colIdx + 1)));
+            // checking if the element above actually exists
+            if (m_graphMatrix(rowIdx, colIdx + 1) != 0) {
+                reachables.push_back(graphElement(pair(rowIdx, colIdx + 1), m_graphMatrix(rowIdx, colIdx + 1)));
+            }
         }
 
         return reachables;
     }
 
-    std::string Graph::getDirection(const graphElement& origin, const graphElement& destination) const{
+    std::string Graph::getDirection(const graphElement& origin, const graphElement& destination) const {
         if (origin.getIdentifier().first == destination.getIdentifier().first + 1
             && origin.getIdentifier().second == destination.getIdentifier().second) {
                 return "Left";
