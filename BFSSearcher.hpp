@@ -18,9 +18,10 @@ namespace searcher {
                 // this vector will hold the visited elements
                 std::vector<Element<Identifier>> visited;
                 // this queue will be used for the BFS algorithm
-                std::queue<ElementType> queue;
-                // this map will hold for each element pair with the cost of the element and the previous element in this path
-                std::map<ElementType, std::pair<double, ElementType>> pathsInfo;
+                std::queue<Element<Identifier>> queue;
+                // this map will hold for each element pair with the cost of the optimal path from the start element to the element
+                // and the previous element in this path
+                std::map<Element<Identifier>, std::pair<double, Element<Identifier>>> pathsInfo;
 
                 // this vector will hold the directions of the optimal way from the start element to the end element
                 std::vector<std::string> directions;
@@ -28,7 +29,7 @@ namespace searcher {
                 // adding the start element to the visited elements vector, enqueuing it, and adding it to the optimal paths map
                 visited.push_back(searchable.getStartElement());
                 queue.push(searchable.getStartElement());
-                optimalPathsInfo.emplace(searchable.getStartElement(), std::make_pair(searchable.getStartElement().getValue(), searchable.getStartElement()));
+                pathsInfo.emplace(searchable.getStartElement(), std::make_pair(searchable.getStartElement().getValue(), searchable.getStartElement()));
 
                 while (!queue.empty()) {
                     // dequeuing an element
@@ -43,14 +44,14 @@ namespace searcher {
                         // iterating over the elements, and initializing the directions vector according to the optimal path
                         Element<Identifier> *temp = &current;
                         while (*temp != searchable.getStartElement()) {
-                            cost += optimalPathsInfo.at(*temp).first;
+                            cost += pathsInfo.at(*temp).first;
                             // adding a direction between two elements in the optimal path 
-                            directions.insert(directions.begin(), searchable.getDirection(optimalPathsInfo.at(*temp).second, *temp));
+                            directions.insert(directions.begin(), searchable.getDirection(pathsInfo.at(*temp).second, *temp));
                             // moving to the previous element
-                            temp = &optimalPathsInfo.at(*temp).second;
+                            temp = &pathsInfo.at(*temp).second;
                         }
 
-                        return SearchResult(directions, optimalCost, "BFS");
+                        return SearchResult(directions, cost, "BFS");
                     }
 
                     // getting all of the reachable elements of the dequeued element
@@ -64,10 +65,6 @@ namespace searcher {
                         }
                     }  
                 }
-<<<<<<< HEAD
-
-=======
->>>>>>> bfs
             }
     };
 }

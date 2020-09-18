@@ -30,33 +30,45 @@ namespace searcher {
             double recursiveSearch(const Searchable<Identifier>& searchable, std::vector<Element<Identifier>>& visited,
                 std::vector<std::string>& directions, const Element<Identifier>& current) const {
             
+                // if the current element is the end element, stopping the recursive search
                 if (current == searchable.getEndElement()) {
                     return searchable.getEndElement().getValue();
                 }
 
+                // adding the current element to the visited elements vector, to mark it as visited
                 visited.push_back(current);
 
-                double recursiveCost = std::numeric_limits<uint32_t>::max();
-                Element<Identifier>* recursiveElement = nullptr;
+                // this variable will point to a reachable element of the current element, which has a path
+                // from the start element to it 
+                Element<Identifier>* reachableElement = nullptr;
+                // this variable will hold the cost of the path from the start element to reachableElement
+                double reachableElementPathCost = std::numeric_limits<uint32_t>::max();
 
+                // for every element from the reachable elements of the current element, checking if there is a path
+                // from the start element to this element
                 for (auto reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
-                        double tempCost = recursiveSearch(searchable, visited, directions, reachable);
-                        if (tempCost != std::numeric_limits<uint32_t>::max()) {
-                            recursiveCost = tempCost;
-                            recursiveElement = &reachable;
+                        // getting the cost of the path from the start element to this reachable element
+                        double temp = recursiveSearch(searchable, visited, directions, reachable);
+                        // if the path actually exists (the path cost isn't infinity), breaking the loop
+                        if (temp != std::numeric_limits<uint32_t>::max()) {
+                            reachableElement = &reachable;
+                            reachableElementPathCost = temp;
                             break;
                         }
                     }
                 }
 
-                if (recursiveCost == std::numeric_limits<uint32_t>::max()) {
-                    return recursiveCost;
+                // if there isn't a path from the start element to a reachable element of the current element,
+                // so returning infinity
+                if (reachableElementPathCost == std::numeric_limits<uint32_t>::max()) {
+                    return reachableElementPathCost;
                 }
 
-                directions.insert(directions.begin(), searchable.getDirection(current, *recursiveElement));
+                // adding the direction from the current element to the reachable element to the directions vector
+                directions.insert(directions.begin(), searchable.getDirection(current, *reachableElement));
 
-                return current.getValue() + recursiveCost;
+                return current.getValue() + reachableElementPathCost;
             }
     };
 }

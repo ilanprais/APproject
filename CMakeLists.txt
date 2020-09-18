@@ -9,8 +9,8 @@ enable_testing()
 
 include_directories(${CMAKE_SOURCE_DIR})
 link_directories(${CMAKE_SOURCE_DIR})
-add_executable(search_tester tester.cpp AbstractSearchable.cpp SearchResult.cpp DFSSearcher.cpp BFSSearcher.cpp
-Graph.cpp Element.cpp Matrix.cpp ErrorCode.cpp)
+add_executable(search_tester tester.cpp SearchResult.cpp
+Graph.cpp Matrix.cpp ErrorCode.cpp)
 target_link_libraries(search_tester matrix)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
