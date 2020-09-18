@@ -12,8 +12,8 @@ namespace searcher {
         std::vector<graphElement> reachables;
 
         // getting the exact location of the current element
-        uint32_t rowIdx = current.getIdentifier().first;
-        uint32_t colIdx = current.getIdentifier().second;
+        const auto rowIdx = current.getIdentifier().first;
+        const auto colIdx = current.getIdentifier().second;
 
         // adding the element in the left of the current element, if exists
         if (colIdx > 0) {
