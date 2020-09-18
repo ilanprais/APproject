@@ -18,7 +18,7 @@ int main() {
     Graph graph(gMatrix, std::pair<uint32_t, uint32_t>(0, 0), std::pair<uint32_t, uint32_t>(2, 2));
 
     // creating a BFS searcher object
-    DFSSearcher<graphElement> DFS = DFSSearcher<graphElement>();
+    DFSSearcher<pair> DFS = DFSSearcher<pair>();
 
     // searching on the graph
     SearchResult result = DFS.search(graph);
