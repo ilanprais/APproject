@@ -20,8 +20,14 @@ namespace searcher {
                 std::vector<Element<Identifier>> visited;
                 // this queue will be used for the BFS algorithm
                 std::queue<Element<Identifier>> queue;
-                // this map will hold for every element in the path, its previous element in the path
-                std::map<Element<Identifier>, Element<Identifier>> pathsInfo;
+
+                // this lambda comparator will make an order on the elements in the map
+                auto CompareByIdentifier = [](const Element<Identifier>& e1, const Element<Identifier>& e2) {
+                    return e1.getIdentifier() < e2.getIdentifier();
+                };
+                // this map will hold for every element in the path, its previous element in the path.
+                // the elements will be ordered in the map using the lambda comparator above
+                std::map<Element<Identifier>, Element<Identifier>, decltype(CompareByIdentifier)> pathsInfo(CompareByIdentifier);
 
                 // this vector will hold the directions of the path from the start element to the end element
                 std::vector<std::string> directions;
