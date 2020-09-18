@@ -4,6 +4,7 @@
 #include "SearchResult.hpp"
 #include <algorithm>
 #include <limits>
+#include <iostream>
 
 namespace searcher {
 
