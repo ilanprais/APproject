@@ -56,7 +56,7 @@ namespace searcher {
                     return std::numeric_limits<uint32_t>::max();
                 }
 
-                directions.push_back(searchable.getDirection(current, *recursiveNode));
+                directions.insert(directions.begin(), searchable.getDirection(current, *recursiveNode));
 
                 return recursiveCost + current.getValue();
             }
