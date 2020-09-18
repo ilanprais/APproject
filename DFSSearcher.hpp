@@ -20,7 +20,7 @@ namespace searcher {
                 std::vector<std::string> directions;
                 
                 // getting the optimal cost of the way from the start element to the end element
-                double value = recursiveSearch(searchable, visited, directions, searchable.getStartElement());
+                const auto value = recursiveSearch(searchable, visited, directions, searchable.getStartElement());
 
                 return SearchResult(directions, value, "DFS");
             }
@@ -40,16 +40,16 @@ namespace searcher {
 
                 // this variable will point to a reachable element of the current element, which has a path
                 // from the start element to it 
-                Element<Identifier>* reachableElement = nullptr;
+                Element<Identifier> *reachableElement = nullptr;
                 // this variable will hold the cost of the path from the start element to reachableElement
-                double reachableElementPathCost = std::numeric_limits<uint32_t>::max();
+                double reachableElementPathCost = std::numeric_limits<double>::max();
 
                 // for every element from the reachable elements of the current element, checking if there is a path
                 // from the start element to this element
                 for (auto& reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
                         // getting the cost of the path from the start element to this reachable element
-                        double temp = recursiveSearch(searchable, visited, directions, reachable);
+                        const auto temp = recursiveSearch(searchable, visited, directions, reachable);
                         // if the path actually exists (the path cost isn't infinity), breaking the loop
                         if (temp != std::numeric_limits<uint32_t>::max()) {
                             reachableElement = &reachable;
@@ -61,7 +61,7 @@ namespace searcher {
 
                 // if there isn't a path from the start element to a reachable element of the current element,
                 // so returning infinity
-                if (reachableElementPathCost == std::numeric_limits<uint32_t>::max()) {
+                if (reachableElementPathCost == std::numeric_limits<double>::max()) {
                     return reachableElementPathCost;
                 }
 

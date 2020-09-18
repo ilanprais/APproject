@@ -30,7 +30,7 @@ namespace searcher {
             }
 
             bool operator!=(const Element<Identifier>& other) const {
-                return !(m_identifier == other.m_identifier && m_value == other.m_value);
+                return !(*this == other);
             }
 
             bool operator<(const Element<Identifier>& other) const {
