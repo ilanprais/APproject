@@ -36,25 +36,27 @@ namespace searcher {
 
                 visited.push_back(current);
 
-                double optimalCost = std::numeric_limits<uint32_t>::max();
-                ElementType *optimalNode = nullptr;
+                double recursiveCost = std::numeric_limits<uint32_t>::max();
+                ElementType* recursiveElement = nullptr;
+                
 
                 for (auto reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
-                        if (double currentPrice = recursiveSearch(searchable, visited, directions, reachable) < optimalCost) {
-                            optimalCost = currentPrice;
-                            optimalNode = &reachable;
+                        if (double currentPrice = recursiveSearch(searchable, visited, directions, reachable) != std::numeric_limits<uint32_t>::max()) {
+                            recursiveCost = currentPrice;
+                            *recursiveElement = reachable;
+                            break;
                         }
                     }
                 }
 
-                if (optimalNode == nullptr) {
-                    return std::numeric_limits<uint32_t>::max();
+                if (recursiveCost == std::numeric_limits<uint32_t>::max()) {
+                    return recursiveCost;
                 }
 
                 directions.push_back(searchable.getDirection(current, *optimalNode));
 
-                return current.getValue() + optimalCost;
+                return current.getValue() + recursiveCost;
             }
     };
 }
