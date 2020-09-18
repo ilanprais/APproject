@@ -73,7 +73,6 @@ namespace searcher {
                     }  
                 }
 
-                //return SearchResult(directions, optimalCost, "BFS");
             }
     };
 }

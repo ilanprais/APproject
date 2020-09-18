@@ -4,6 +4,7 @@
 #include "SearchResult.hpp"
 #include <algorithm>
 #include <limits>
+#include <iostream>
 
 namespace searcher {
 
@@ -37,26 +38,26 @@ namespace searcher {
                 visited.push_back(current);
 
                 double recursiveCost = std::numeric_limits<uint32_t>::max();
-                ElementType* recursiveElement = nullptr;
-                
+                ElementType *recursiveNode = nullptr;
 
                 for (auto reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
-                        if (double currentPrice = recursiveSearch(searchable, visited, directions, reachable) != std::numeric_limits<uint32_t>::max()) {
-                            recursiveCost = currentPrice;
-                            *recursiveElement = reachable;
+                        if (double tempCost = recursiveSearch(searchable, visited, directions, reachable) != std::numeric_limits<uint32_t>::max()) {
+                            recursiveCost = tempCost;
+                            recursiveNode = &reachable;
+                            std::cout << recursiveCost << std::endl;
                             break;
                         }
                     }
                 }
 
-                if (recursiveCost == std::numeric_limits<uint32_t>::max()) {
-                    return recursiveCost;
+                if (recursiveNode == nullptr) {
+                    return std::numeric_limits<uint32_t>::max();
                 }
 
-                directions.push_back(searchable.getDirection(current, *optimalNode));
+                directions.push_back(searchable.getDirection(current, *recursiveNode));
 
-                return current.getValue() + recursiveCost;
+                return recursiveCost + current.getValue();
             }
     };
 }
