@@ -32,7 +32,7 @@ namespace searcher {
 
                 while (!queue.empty()) {
                     // dequeuing an element
-                    const auto current = queue.front();
+                    Element<Identifier> current = queue.front();
                     queue.pop();
 
                     // in case that the dequeued element is the end element, then finishing the search
