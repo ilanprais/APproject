@@ -9,18 +9,19 @@
 
 namespace searcher {
 
-    template <typename ElementType>
-    class BFSSearcher : public Searcher<SearchResult, ElementType> {
+    template <typename Identifier>
+    class BFSSearcher : public Searcher<SearchResult, Identifier> {
 
         public:
 
-            SearchResult search(const Searchable<ElementType>& searchable) const {
+            SearchResult search(const Searchable<Identifier>& searchable) const {
                 // this vector will hold the visited elements
-                std::vector<ElementType> visited;
+                std::vector<Element<Identifier>> visited;
                 // this queue will be used for the BFS algorithm
-                std::queue<ElementType> queue;
-                // this map will hold for each element pair with the cost of the element and the previous element in this path
-                std::map<ElementType, std::pair<double, ElementType>> pathsInfo;
+                std::queue<Element<Identifier>> queue;
+                // this map will hold for each element pair with the cost of the optimal path from the start element to the element
+                // and the previous element in this path
+                std::map<Element<Identifier>, std::pair<double, Element<Identifier>>> optimalPathsInfo;
 
                 // this vector will hold the directions of the optimal way from the start element to the end element
                 std::vector<std::string> directions;
@@ -32,7 +33,7 @@ namespace searcher {
 
                 while (!queue.empty()) {
                     // dequeuing an element
-                    ElementType current = queue.front();
+                    Element<Identifier> current = queue.front();
                     queue.pop();
 
                     // in case that the dequeued element is the end element, then finishing the search
@@ -41,7 +42,7 @@ namespace searcher {
                         double cost = 0;
 
                         // iterating over the elements, and initializing the directions vector according to the optimal path
-                        ElementType *temp = &current;
+                        Element<Identifier> *temp = &current;
                         while (*temp != searchable.getStartElement()) {
                             cost += optimalPathsInfo.at(*temp).first;
                             // adding a direction between two elements in the optimal path 

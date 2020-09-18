@@ -11,7 +11,7 @@ namespace searcher {
     typedef std::pair<uint32_t, uint32_t> pair;
     typedef Element<pair> graphElement;
 
-    class Graph : public AbstractSearchable<graphElement> {
+    class Graph : public AbstractSearchable<pair> {
 
         const matrix::Matrix m_graphMatrix;
 
