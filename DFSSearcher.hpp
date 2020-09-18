@@ -39,7 +39,6 @@ namespace searcher {
 
                 double recursiveCost = std::numeric_limits<uint32_t>::max();
                 ElementType* recursiveElement = nullptr;
-                
 
                 for (auto reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {

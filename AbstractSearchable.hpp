@@ -4,29 +4,28 @@
 
 namespace searcher {
     
-    template <typename ElementType>
-    class AbstractSearchable : public Searchable<ElementType> {
+    template <typename Identifier>
+    class AbstractSearchable : public Searchable<Identifier> {
 
-        const ElementType m_startElement;
-        const ElementType m_endElement;
+        const Element<Identifier> m_startElement;
+        const Element<Identifier> m_endElement;
 
         public:
         
-            AbstractSearchable(const ElementType& startElement,
-                const ElementType& endElement)
+            AbstractSearchable(const Element<Identifier>& startElement, const Element<Identifier>& endElement)
             : m_startElement(startElement),
             m_endElement(endElement) {}
 
-            const ElementType& getStartElement() const {
+            const Element<Identifier>& getStartElement() const {
                 return m_startElement;
             }
 
-            const ElementType& getEndElement() const {
+            const Element<Identifier>& getEndElement() const {
                 return m_endElement;
             }
 
-            virtual std::vector<ElementType> getAllReachableElements(const ElementType& current) const = 0;
+            virtual std::vector<Element<Identifier>> getAllReachableElements(const Element<Identifier>& current) const = 0;
 
-            virtual std::string getDirection(const ElementType& origin, const ElementType& destination) const = 0;
+            virtual std::string getDirection(const Element<Identifier>& origin, const Element<Identifier>& destination) const = 0;
     };
 }
