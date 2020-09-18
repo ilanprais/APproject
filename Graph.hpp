@@ -1,14 +1,17 @@
 #pragma once
 
 #include "AbstractSearchable.hpp"
-#include "Element.hpp"
 #include "Matrix.hpp"
+#include "Element.hpp"
 #include <cstdint>
 #include <utility>
 
 namespace searcher {
 
-    class Graph : public AbstractSearchable<Element> {
+    typedef std::pair<uint32_t, uint32_t> pair;
+    typedef Element<pair> graphElement;
+
+    class Graph : public AbstractSearchable<graphElement> {
 
         const matrix::Matrix m_graphMatrix;
 
@@ -16,8 +19,8 @@ namespace searcher {
 
             Graph(const matrix::Matrix& graphMatrix, const pair& startLocation, const pair& endLocation);
             
-            std::vector<Element> getAllReachableElements(const Element& current) const override;
+            std::vector<graphElement> getAllReachableElements(const graphElement& current) const override;
 
-            std::string getDirection(const Element& origin, const Element& destination) const override;
+            std::string getDirection(const graphElement& origin, const graphElement& destination) const override;
     };
 }
