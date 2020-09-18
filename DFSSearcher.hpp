@@ -16,7 +16,7 @@ namespace searcher {
                 // this vector will hold the visited elements
                 std::vector<Element<Identifier>> visited;
 
-                // this vector will hold the directions of the optimal path from the start element to the end element
+                // this vector will hold the directions of the path from the start element to the end element
                 std::vector<std::string> directions;
                 
                 // getting the optimal cost of the way from the start element to the end element
