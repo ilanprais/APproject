@@ -39,7 +39,7 @@ namespace searcher {
                     if (current == searchable.getEndElement()) {
                         // this variable will hold the total cost of the path. 
                         // first, initializing it just with the cost of the start element
-                        const auto pathCost = searchable.getStartElement().getValue();
+                        auto pathCost = searchable.getStartElement().getValue();
 
                         // iterating over the elements, and initializing the directions vector according to the path
                         Element<Identifier> *temp = &current;
