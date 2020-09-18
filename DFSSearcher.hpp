@@ -4,18 +4,17 @@
 #include "SearchResult.hpp"
 #include <algorithm>
 #include <limits>
-#include <iostream>
 
 namespace searcher {
 
-    template <typename ElementType>
-    class DFSSearcher : public Searcher<SearchResult, ElementType> {
+    template <typename Identifier>
+    class DFSSearcher : public Searcher<SearchResult, Identifier> {
 
         public:
 
-            SearchResult search(const Searchable<ElementType>& searchable) const {
+            SearchResult search(const Searchable<Identifier>& searchable) const {
                 // this vector will hold the visited elements
-                std::vector<ElementType> visited;
+                std::vector<Element<Identifier>> visited;
 
                 // this vector will hold the directions of the optimal path from the start element to the end element
                 std::vector<std::string> directions;
@@ -28,8 +27,8 @@ namespace searcher {
 
         private:
 
-            double recursiveSearch(const Searchable<ElementType>& searchable, std::vector<ElementType>& visited,
-                std::vector<std::string>& directions, const ElementType& current) const {
+            double recursiveSearch(const Searchable<Element<Identifier>>& searchable, std::vector<Element<Identifier>>& visited,
+                std::vector<std::string>& directions, const Element<Identifier>& current) const {
             
                 if (current == searchable.getEndElement()) {
                     return searchable.getEndElement().getValue();
@@ -38,7 +37,7 @@ namespace searcher {
                 visited.push_back(current);
 
                 double recursiveCost = std::numeric_limits<uint32_t>::max();
-                ElementType* recursiveElement = nullptr;
+                Element<Identifier>* recursiveElement = nullptr;
 
                 for (auto reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
@@ -46,7 +45,6 @@ namespace searcher {
                         if (tempCost != std::numeric_limits<uint32_t>::max()) {
                             recursiveCost = tempCost;
                             recursiveElement = &reachable;
-                            std::cout << recursiveCost << std::endl;
                             break;
                         }
                     }

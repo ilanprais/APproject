@@ -14,7 +14,7 @@ namespace searcher {
 
         public:
 
-            SearchResult search(const Searchable<Element<Identifier>>& searchable) const {
+            SearchResult search(const Searchable<Identifier>& searchable) const {
                 // this vector will hold the visited elements
                 std::vector<Element<Identifier>> visited;
                 // this queue will be used for the BFS algorithm

@@ -9,6 +9,6 @@ namespace searcher {
 
         public:
         
-            virtual SearchResultType search(const Searchable<Element<Identifier>>& searchable) const = 0;
+            virtual SearchResultType search(const Searchable<Identifier>& searchable) const = 0;
     };
 }
