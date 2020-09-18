@@ -25,16 +25,16 @@ namespace searcher {
                 return m_value;
             }
 
-            bool operator==(const Element& other) const {
+            bool operator==(const Element<Identifier>& other) const {
                 return m_identifier == other.m_identifier && m_value == other.m_value;
             }
 
-            bool operator!=(const Element& other) const {
-                return !(*this == other);
+            bool operator!=(const Element<Identifier>& other) const {
+                return !(m_identifier == other.m_identifier && m_value == other.m_value);
             }
 
-            bool operator<(const Element& other) const {
-                return m_value < other.m_value;
+            bool operator<(const Element<Identifier>& other) const {
+                return m_identifier < other.m_identifier;
             }
     };
 }
