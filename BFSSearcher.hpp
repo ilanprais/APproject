@@ -45,18 +45,18 @@ namespace searcher {
                         Element<Identifier> *temp = &current;
                         while (*temp != searchable.getStartElement()) {
                             // adding the cost of the current element to the total cost of the path
-                            pathCost += (*temp).getValue();
+                            pathCost += temp->getValue();
                             // adding a direction between two elements in the path 
                             directions.push_back(searchable.getDirection(pathsInfo.at(*temp), *temp));
                             // moving to the previous element
-                            temp = &(pathsInfo.at(*temp));
+                            temp = &pathsInfo.at(*temp);
                         }
                         
                         return SearchResult(directions, pathCost, "BFS");
                     }
 
                     // getting all of the reachable elements of the dequeued element
-                    for (auto reachable : searchable.getAllReachableElements(current)) {
+                    for (auto& reachable : searchable.getAllReachableElements(current)) {
                         // if the reachable element has not been visited, then adding it to the visited elements vector, 
                         // enqueuing it to the queue, and getting its previos element in the path
                         if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {

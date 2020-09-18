@@ -46,7 +46,7 @@ namespace searcher {
 
                 // for every element from the reachable elements of the current element, checking if there is a path
                 // from the start element to this element
-                for (auto reachable : searchable.getAllReachableElements(current)) {
+                for (auto& reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
                         // getting the cost of the path from the start element to this reachable element
                         double temp = recursiveSearch(searchable, visited, directions, reachable);
