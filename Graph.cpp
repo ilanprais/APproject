@@ -15,22 +15,6 @@ namespace searcher {
         uint32_t rowIdx = current.getIdentifier().first;
         uint32_t colIdx = current.getIdentifier().second;
 
-        // adding the element above the current element, if exists
-        if (rowIdx > 0) {
-            // checking if the element above actually exists
-            if (m_graphMatrix(rowIdx - 1, colIdx) != 0) {
-                reachables.push_back(graphElement(pair(rowIdx - 1, colIdx), m_graphMatrix(rowIdx - 1, colIdx)));
-            }
-        }
-
-        // adding the element below the current element, if exists
-        if (rowIdx < m_graphMatrix.getHeight() - 1) {
-            // checking if the element above actually exists
-            if (m_graphMatrix(rowIdx + 1, colIdx) != 0) {
-                reachables.push_back(graphElement(pair(rowIdx + 1, colIdx), m_graphMatrix(rowIdx + 1, colIdx)));
-            }
-        }
-
         // adding the element in the left of the current element, if exists
         if (colIdx > 0) {
             // checking if the element above actually exists
@@ -44,6 +28,22 @@ namespace searcher {
             // checking if the element above actually exists
             if (m_graphMatrix(rowIdx, colIdx + 1) != 0) {
                 reachables.push_back(graphElement(pair(rowIdx, colIdx + 1), m_graphMatrix(rowIdx, colIdx + 1)));
+            }
+        }
+
+        // adding the element above the current element, if exists
+        if (rowIdx > 0) {
+            // checking if the element above actually exists
+            if (m_graphMatrix(rowIdx - 1, colIdx) != 0) {
+                reachables.push_back(graphElement(pair(rowIdx - 1, colIdx), m_graphMatrix(rowIdx - 1, colIdx)));
+            }
+        }
+
+        // adding the element below the current element, if exists
+        if (rowIdx < m_graphMatrix.getHeight() - 1) {
+            // checking if the element above actually exists
+            if (m_graphMatrix(rowIdx + 1, colIdx) != 0) {
+                reachables.push_back(graphElement(pair(rowIdx + 1, colIdx), m_graphMatrix(rowIdx + 1, colIdx)));
             }
         }
 
