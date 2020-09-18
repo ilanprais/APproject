@@ -17,7 +17,7 @@ namespace searcher {
 
         // adding the element in the left of the current element, if exists
         if (colIdx > 0) {
-            // checking if the element above actually exists
+            // checking if the element in the left actually exists
             if (m_graphMatrix(rowIdx, colIdx - 1) != 0) {
                 reachables.push_back(graphElement(pair(rowIdx, colIdx - 1), m_graphMatrix(rowIdx, colIdx - 1)));
             }
@@ -25,7 +25,7 @@ namespace searcher {
 
         // adding the element in the right of the current element, if exists
         if (colIdx < m_graphMatrix.getWidth() - 1) {
-            // checking if the element above actually exists
+            // checking if the element in the right actually exists
             if (m_graphMatrix(rowIdx, colIdx + 1) != 0) {
                 reachables.push_back(graphElement(pair(rowIdx, colIdx + 1), m_graphMatrix(rowIdx, colIdx + 1)));
             }
@@ -41,7 +41,7 @@ namespace searcher {
 
         // adding the element below the current element, if exists
         if (rowIdx < m_graphMatrix.getHeight() - 1) {
-            // checking if the element above actually exists
+            // checking if the element below actually exists
             if (m_graphMatrix(rowIdx + 1, colIdx) != 0) {
                 reachables.push_back(graphElement(pair(rowIdx + 1, colIdx), m_graphMatrix(rowIdx + 1, colIdx)));
             }
@@ -51,20 +51,20 @@ namespace searcher {
     }
 
     std::string Graph::getDirection(const graphElement& origin, const graphElement& destination) const {
-        if (origin.getIdentifier().first == destination.getIdentifier().first + 1
-            && origin.getIdentifier().second == destination.getIdentifier().second) {
+        if (origin.getIdentifier().second == destination.getIdentifier().second + 1
+            && origin.getIdentifier().first == destination.getIdentifier().first) {
                 return "Left";
         }
-        else if (origin.getIdentifier().first == destination.getIdentifier().first - 1
-            && origin.getIdentifier().second == destination.getIdentifier().second) {
+        else if (origin.getIdentifier().second == destination.getIdentifier().second - 1
+            && origin.getIdentifier().first == destination.getIdentifier().first) {
                 return "Right";
         }
-        else if (origin.getIdentifier().first == destination.getIdentifier().first
-            && origin.getIdentifier().second == destination.getIdentifier().second + 1) {
+        else if (origin.getIdentifier().second == destination.getIdentifier().second
+            && origin.getIdentifier().first == destination.getIdentifier().first + 1) {
                 return "Up";
         }
-        else if (origin.getIdentifier().first == destination.getIdentifier().first
-            && origin.getIdentifier().second == destination.getIdentifier().second - 1) {
+        else if (origin.getIdentifier().second == destination.getIdentifier().second
+            && origin.getIdentifier().first == destination.getIdentifier().first - 1) {
                 return "Down";
         }
         return "";
