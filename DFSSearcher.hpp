@@ -56,7 +56,7 @@ namespace searcher {
                     return recursiveCost;
                 }
 
-                directions.push_back(searchable.getDirection(current, *recursiveElement));
+                directions.insert(directions.begin(), searchable.getDirection(current, *recursiveElement));
 
                 return current.getValue() + recursiveCost;
             }
