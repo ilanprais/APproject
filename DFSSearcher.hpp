@@ -42,9 +42,11 @@ namespace searcher {
 
                 for (auto reachable : searchable.getAllReachableElements(current)) {
                     if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
-                        if (double currentPrice = recursiveSearch(searchable, visited, directions, reachable) != std::numeric_limits<uint32_t>::max()) {
-                            recursiveCost = currentPrice;
+                        double tempCost = recursiveSearch(searchable, visited, directions, reachable);
+                        if (tempCost != std::numeric_limits<uint32_t>::max()) {
+                            recursiveCost = tempCost;
                             recursiveElement = &reachable;
+                            std::cout << recursiveCost << std::endl;
                             break;
                         }
                     }
