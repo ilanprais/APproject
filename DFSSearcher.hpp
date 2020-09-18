@@ -27,7 +27,7 @@ namespace searcher {
 
         private:
 
-            double recursiveSearch(const Searchable<Element<Identifier>>& searchable, std::vector<Element<Identifier>>& visited,
+            double recursiveSearch(const Searchable<Identifier>& searchable, std::vector<Element<Identifier>>& visited,
                 std::vector<std::string>& directions, const Element<Identifier>& current) const {
             
                 if (current == searchable.getEndElement()) {
