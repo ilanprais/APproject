@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Searcher.hpp"
-#include "SearchResult.hpp"
+#include "AbstractSearcher.hpp"
 #include "SearchExceptions.hpp"
 #include <stack>
 #include <utility>

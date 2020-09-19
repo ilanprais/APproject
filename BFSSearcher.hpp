@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Searcher.hpp"
-#include "SearchResult.hpp"
+#include "AbstractSearcher.hpp"
 #include "SearchExceptions.hpp"
 #include <queue>
 #include <utility>
@@ -10,7 +9,7 @@
 namespace searcher {
 
     template <typename Identifier>
-    class BFSSearcher : public AbstractSearcher<SearchResult, Identifier> {
+    class BFSSearcher : public AbstractSearcher<Identifier> {
 
         public:
 

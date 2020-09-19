@@ -1,16 +1,17 @@
 #pragma once
 
 #include "Searcher.hpp"
+#include "SearchResult.hpp"
 #include <map>
 
 namespace searcher {
 
-    template <typename SearchResultType, typename Identifier>
-    class AbstractSearcher : public Searcher<SearchResultType, Identifier> {
+    template <typename Identifier>
+    class AbstractSearcher : public Searcher<SearchResult, Identifier> {
 
         public:
 
-            virtual SearchResultType search(const Searchable<Identifier>& searchable) const = 0;
+            virtual SearchResult search(const Searchable<Identifier>& searchable) const = 0;
 
         protected:
 
