@@ -25,12 +25,12 @@ namespace searcher {
                 // the elements will be ordered in the map using the element identifier comparator
                 std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>> cameFrom;
 
-                // adding the start element to the visited elements vector, enqueuing it, and adding it to the path info map
+                // adding the start element to the visited elements vector, enqueuing it
                 visited.push_back(searchable.getStartElement());
                 queue.push(searchable.getStartElement());
 
                 while (!queue.empty()) {
-                    // dequeuing an element
+                    // dequeuing an element from the queue
                     Element<Identifier> current = queue.front();
                     queue.pop();
 
@@ -39,7 +39,7 @@ namespace searcher {
                         return reconstructPath(searchable, cameFrom);
                     }
 
-                    // getting all of the reachable elements of the dequeued element
+                    // else, getting all of the reachable elements of the dequeued element
                     for (auto& reachable : searchable.getAllReachableElements(current)) {
                         // if the reachable element has not been visited, then adding it to the visited elements vector, 
                         // enqueuing it to the queue, and getting its previos element in the path
