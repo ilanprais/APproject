@@ -46,7 +46,7 @@ namespace searcher {
     struct CompareByFScore {
         
         bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) {
-
+            
         }
     };
 }

@@ -17,6 +17,7 @@ namespace searcher {
 
             virtual SearchResult reconstructPath(const Searchable<Identifier>& searchable, 
                 std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>>& cameFrom) const {
+
                 // this vector will hold the directions of the path from the start element to the end element
                 std::vector<std::string> directions;
 
