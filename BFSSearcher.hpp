@@ -54,7 +54,7 @@ namespace searcher {
         private:
 
             SearchResult reconstructPath(const Searchable<Identifier>& searchable, 
-                const std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>>& cameFrom) const {
+                std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>>& cameFrom) const {
                     // this vector will hold the directions of the path from the start element to the end element
                     std::vector<std::string> directions;
 
@@ -63,7 +63,7 @@ namespace searcher {
                     auto pathCost = searchable.getStartElement().getValue();
 
                     // iterating over the elements, and initializing the directions vector according to the path
-                    Element<Identifier> *temp = &searchable.getEndElement();
+                    const Element<Identifier> *temp = &searchable.getEndElement();
                     while (*temp != searchable.getStartElement()) {
                         // adding the cost of the current element to the total cost of the path
                         pathCost += temp->getValue();
