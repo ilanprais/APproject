@@ -25,7 +25,7 @@ namespace searcher {
                 // the elements will be ordered in the map using the element identifier comparator
                 std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>> cameFrom;
 
-                // adding the start element to the visited elements vector, enqueuing it, and adding it to the path info map
+                // adding the start element to the visited elements vector, enqueuing it
                 visited.push_back(searchable.getStartElement());
                 queue.push(searchable.getStartElement());
 
