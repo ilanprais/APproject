@@ -16,11 +16,13 @@ namespace searcher {
             : m_startElement(startElement),
             m_endElement(endElement) {}
 
-            const Element<Identifier>& getStartElement() const {
+            virtual ~AbstractSearchable() = default;
+
+            virtual const Element<Identifier>& getStartElement() const final {
                 return m_startElement;
             }
 
-            const Element<Identifier>& getEndElement() const {
+            virtual const Element<Identifier>& getEndElement() const final {
                 return m_endElement;
             }
 
