@@ -12,14 +12,14 @@ namespace searcher {
 
         public:
 
-            SearchResult search(const Searchable<Identifier>& searchable) const {
+            SearchResult search(const Searchable<Identifier>& searchable) const override {
                 // this vector will hold the visited elements
                 std::vector<Element<Identifier>> visited;
                 // this queue will be used for the BFS algorithm
                 std::queue<Element<Identifier>> queue;
 
                 // this map will hold for every element in the path, its previous element in the path.
-                // the elements will be ordered in the map using the element identifier comparator
+                // the elements will be ordered in the map using the element Identifier comparator
                 std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>> cameFrom;
 
                 // adding the start element to the visited elements vector, enqueuing it
