@@ -22,6 +22,11 @@ namespace searcher {
                 // getting the optimal cost of the way from the start element to the end element
                 const auto value = recursiveSearch(searchable, visited, directions, searchable.getStartElement());
 
+                // if the end element has not been visited, then the path does not exist
+                if (std::find(visited.begin(), visited.end(), searchable.getEndElement()) == visited.end()) {
+                    throw exceptions::PathDoesNotExistException();
+                }
+
                 return SearchResult(directions, value, "DFS");
             }
 

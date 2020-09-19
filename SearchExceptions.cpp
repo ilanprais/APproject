@@ -9,5 +9,8 @@ namespace searcher {
 
         InvalidEndPositionException::InvalidEndPositionException()
             : std::runtime_error("Invalid end position") {}
+
+        PathDoesNotExistException::PathDoesNotExistException()
+            : std::runtime_error("The requested path does not exist") {}
     }
 }

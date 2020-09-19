@@ -19,5 +19,12 @@ namespace searcher {
 
                 InvalidEndPositionException();
         };
+
+        class PathDoesNotExistException : public std::runtime_error {
+
+            public:
+
+                PathDoesNotExistException();
+        };
     }
 }
