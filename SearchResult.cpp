@@ -20,8 +20,6 @@ namespace searcher {
             }
         }
 
-        stringRepresentation += '\n';
-
         return stringRepresentation;
     }
 }

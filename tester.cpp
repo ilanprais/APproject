@@ -14,9 +14,9 @@ int main() {
             gMatrix.setAt(i, j, k);
             k++;
         }
-    } gMatrix.setAt(1, 1, 0);
+    } gMatrix.setAt(2, 1, 0);gMatrix.setAt(1, 1, 0);gMatrix.setAt(0, 1, 0);
 
-    std::cout << gMatrix << std::endl;
+    std::cout << "Matrix:" << std::endl << gMatrix << std::endl << std::endl;
 
 
     // creating a graph object from the matrix
@@ -26,13 +26,13 @@ int main() {
     DFSSearcher<pair> DFS = DFSSearcher<pair>();
 
     try {
-        
+
         // searching on the graph
         SearchResult result = DFS.search(graph);
         // printing the search result
-        std::cout << result.toString();
+        std::cout << "Search Result:" << std::endl << result.toString() << std::endl;
 
     } catch (const std::runtime_error& e) {
-        std::cout << e.what();
+        std::cerr << e.what() << std::endl;
     }
 }
