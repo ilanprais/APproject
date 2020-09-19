@@ -2,6 +2,7 @@
 
 #include "Searcher.hpp"
 #include "SearchResult.hpp"
+#include "SearchExceptions.hpp"
 #include <queue>
 #include <map>
 #include <utility>
@@ -48,6 +49,11 @@ namespace searcher {
                             cameFrom.emplace(reachable, current);         
                         }
                     }  
+                }
+
+                // if the end element has not been visited, then the path does not exist
+                if (std::find(visited.begin(), visited.end(), searchable.getEndElement()) == visited.end()) {
+                    throw exceptions::PathDoesNotExistException();
                 }
             }
 
