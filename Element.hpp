@@ -41,4 +41,12 @@ namespace searcher {
                     return e1.getIdentifier() < e2.getIdentifier();
         }
     };
+
+    template <typename Identifier>
+    struct CompareByFScore {
+        
+        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) {
+
+        }
+    };
 }
