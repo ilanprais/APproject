@@ -14,7 +14,7 @@ int main() {
             gMatrix.setAt(i, j, k);
             k++;
         }
-    } gMatrix.setAt(2, 1, 0);gMatrix.setAt(1, 1, 0);gMatrix.setAt(0, 1, 0);
+    }
 
     std::cout << "Matrix:" << std::endl << gMatrix << std::endl << std::endl;
 

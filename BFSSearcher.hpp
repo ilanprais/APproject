@@ -34,7 +34,7 @@ namespace searcher {
 
                     // in case that the dequeued element is the end element, then finishing the search
                     if (current == searchable.getEndElement()) {
-                        return reconstructPath(searchable, cameFrom);
+                        return this->reconstructPath(searchable, cameFrom);
                     }
 
                     // else, getting all of the reachable elements of the dequeued element

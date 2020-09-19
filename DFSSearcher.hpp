@@ -9,7 +9,7 @@
 namespace searcher {
 
     template <typename Identifier>
-    class DFSSearcher : public AbstractSearcher<SearchResult, Identifier> {
+    class DFSSearcher : public AbstractSearcher<Identifier> {
 
         public:
 
@@ -34,7 +34,7 @@ namespace searcher {
 
                     // in case that the popped element is the end element, then finishing the search
                     if (current == searchable.getEndElement()) {
-                        return reconstructPath(searchable, cameFrom);
+                        return this->reconstructPath(searchable, cameFrom);
                     }
 
                     // else, getting all of the reachable elements of the popped element
