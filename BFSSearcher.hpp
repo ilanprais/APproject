@@ -30,7 +30,7 @@ namespace searcher {
                 queue.push(searchable.getStartElement());
 
                 while (!queue.empty()) {
-                    // dequeuing an element
+                    // dequeuing an element from the queue
                     Element<Identifier> current = queue.front();
                     queue.pop();
 
@@ -39,7 +39,7 @@ namespace searcher {
                         return reconstructPath(searchable, cameFrom);
                     }
 
-                    // getting all of the reachable elements of the dequeued element
+                    // else, getting all of the reachable elements of the dequeued element
                     for (auto& reachable : searchable.getAllReachableElements(current)) {
                         // if the reachable element has not been visited, then adding it to the visited elements vector, 
                         // enqueuing it to the queue, and getting its previos element in the path

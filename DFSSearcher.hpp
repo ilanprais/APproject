@@ -30,7 +30,7 @@ namespace searcher {
                 stack.push(searchable.getStartElement());
 
                 while (!stack.empty()) {
-                    // popping an element
+                    // popping an element from the stack
                     Element<Identifier> current = stack.top();
                     stack.pop();
 
@@ -39,7 +39,7 @@ namespace searcher {
                         return reconstructPath(searchable, cameFrom);
                     }
 
-                    // getting all of the reachable elements of the popped element
+                    // else, getting all of the reachable elements of the popped element
                     for (auto& reachable : searchable.getAllReachableElements(current)) {
                         // if the reachable element has not been visited, then adding it to the visited elements vector, 
                         // pushing it to the stack, and getting its previos element in the path
