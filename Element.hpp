@@ -33,4 +33,12 @@ namespace searcher {
                 return !(*this == other);
             }
     };
+
+    template <typename Identifier>
+    struct CompareByIdentifier {
+        
+        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) {
+                    return e1.getIdentifier() < e2.getIdentifier();
+        }
+    };
 }

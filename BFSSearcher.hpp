@@ -6,7 +6,6 @@
 #include <map>
 #include <utility>
 #include <algorithm>
-#include <iostream>
 
 namespace searcher {
 
@@ -21,18 +20,11 @@ namespace searcher {
                 // this queue will be used for the BFS algorithm
                 std::queue<Element<Identifier>> queue;
 
-                // this lambda comparator will make an order on the elements in the map
-                auto CompareByIdentifier = [](const Element<Identifier>& e1, const Element<Identifier>& e2) {
-                    return e1.getIdentifier() < e2.getIdentifier();
-                };
                 // this map will hold for every element in the path, its previous element in the path.
-                // the elements will be ordered in the map using the lambda comparator above
-                std::map<Element<Identifier>, Element<Identifier>, decltype(CompareByIdentifier)> pathsInfo(CompareByIdentifier);
+                // the elements will be ordered in the map using the element identifier comparator
+                std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>> cameFrom;
 
-                // this vector will hold the directions of the path from the start element to the end element
-                std::vector<std::string> directions;
-
-                // adding the start element to the visited elements vector, enqueuing it, and adding it to the optimal paths map
+                // adding the start element to the visited elements vector, enqueuing it, and adding it to the path info map
                 visited.push_back(searchable.getStartElement());
                 queue.push(searchable.getStartElement());
 
@@ -43,22 +35,7 @@ namespace searcher {
 
                     // in case that the dequeued element is the end element, then finishing the search
                     if (current == searchable.getEndElement()) {
-                        // this variable will hold the total cost of the path. 
-                        // first, initializing it just with the cost of the start element
-                        auto pathCost = searchable.getStartElement().getValue();
-
-                        // iterating over the elements, and initializing the directions vector according to the path
-                        Element<Identifier> *temp = &current;
-                        while (*temp != searchable.getStartElement()) {
-                            // adding the cost of the current element to the total cost of the path
-                            pathCost += temp->getValue();
-                            // adding a direction between two elements in the path 
-                            directions.push_back(searchable.getDirection(pathsInfo.at(*temp), *temp));
-                            // moving to the previous element
-                            temp = &pathsInfo.at(*temp);
-                        }
-                        
-                        return SearchResult(directions, pathCost, "BFS");
+                        return reconstructPath(searchable, cameFrom);
                     }
 
                     // getting all of the reachable elements of the dequeued element
@@ -68,10 +45,35 @@ namespace searcher {
                         if (std::find(visited.begin(), visited.end(), reachable) == visited.end()) {
                             visited.push_back(reachable);
                             queue.push(reachable);
-                            pathsInfo.emplace(reachable, current);         
+                            cameFrom.emplace(reachable, current);         
                         }
                     }  
                 }
+            }
+
+        private:
+
+            SearchResult reconstructPath(const Searchable<Identifier>& searchable, 
+                const std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>>& cameFrom) const {
+                    // this vector will hold the directions of the path from the start element to the end element
+                    std::vector<std::string> directions;
+
+                    // this variable will hold the total cost of the path. 
+                    // first, initializing it just with the cost of the start element
+                    auto pathCost = searchable.getStartElement().getValue();
+
+                    // iterating over the elements, and initializing the directions vector according to the path
+                    Element<Identifier> *temp = &searchable.getEndElement();
+                    while (*temp != searchable.getStartElement()) {
+                        // adding the cost of the current element to the total cost of the path
+                        pathCost += temp->getValue();
+                        // adding a direction between two elements in the path 
+                        directions.insert(directions.begin(), searchable.getDirection(cameFrom.at(*temp), *temp));
+                        // moving to the previous element
+                        temp = &cameFrom.at(*temp);
+                    }
+
+                    return SearchResult(directions, pathCost, "BFS");
             }
     };
 }
