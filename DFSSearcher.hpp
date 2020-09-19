@@ -3,7 +3,6 @@
 #include "AbstractSearcher.hpp"
 #include "SearchExceptions.hpp"
 #include <stack>
-#include <utility>
 #include <algorithm>
 
 namespace searcher {
