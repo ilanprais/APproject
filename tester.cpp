@@ -2,6 +2,7 @@
 #include "BFSSearcher.hpp"
 #include "DFSSearcher.hpp"
 #include "BestFSSearcher.hpp"
+#include "AStarSearcher.hpp"
 #include <iostream>
 
 using namespace searcher;
@@ -15,7 +16,7 @@ int main() {
             gMatrix.setAt(i, j, k);
             k++;
         }
-    } gMatrix.setAt(0, 3, 0);gMatrix.setAt(1, 3, 0);
+    } gMatrix.setAt(0, 3, 0); gMatrix.setAt(1, 3, 0); gMatrix.setAt(2, 2, 0);
 
     std::cout << "Matrix:" << std::endl << gMatrix << std::endl << std::endl;
 
@@ -24,12 +25,12 @@ int main() {
     Graph graph(gMatrix, std::pair<uint32_t, uint32_t>(0, 0), std::pair<uint32_t, uint32_t>(3, 3));
 
     // creating a BFS searcher object
-    BestFSSearcher<pair> BestFS = BestFSSearcher<pair>();
+    AStarSearcher<pair> AStar = AStarSearcher<pair>();
 
     try {
 
         // searching on the graph
-        SearchResult result = BestFS.search(graph);
+        SearchResult result = AStar.search(graph);
         // printing the search result
         std::cout << "Search Result:" << std::endl << result.toString() << std::endl;
 
