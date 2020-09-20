@@ -2,6 +2,7 @@
 
 #include "Searcher.hpp"
 #include "SearchResult.hpp"
+#include "SearchExceptions.hpp"
 #include <set>
 #include <map>
 
@@ -30,7 +31,7 @@ namespace searcher {
 
                 while (!isContainerEmpty()) {
                     // popping an element from the container
-                    const Element<Identifier> current = popFromContainer();
+                    const auto current = popFromContainer();
 
                     // in case that the popped element is the end element, then finishing the search
                     if (current == searchable.getEndElement()) {
@@ -41,7 +42,7 @@ namespace searcher {
                     for (auto& reachable : searchable.getAllReachableElements(current)) {
                         // if the reachable element has not been visited, then marking it as visited, 
                         // adding it to the container, and getting its previos element in the path
-                        if (visited.find(reachable) != visited.end()) {
+                        if (visited.find(reachable) == visited.end()) {
                             visited.insert(reachable);
                             pushToContainer(reachable);
                             cameFrom.emplace(reachable, current);         
@@ -84,13 +85,13 @@ namespace searcher {
                 return SearchResult(directions, pathCost, getAlgorithmName());
             }
 
-            virtual void pushToContainer(const Element<Identifier>& element) = 0;
+            virtual void pushToContainer(const Element<Identifier>& element) const = 0;
 
-            virtual const Element<Identifier>& popFromContainer() = 0;
+            virtual Element<Identifier> popFromContainer() const = 0;
 
             virtual bool isContainerEmpty() const = 0;
 
-            virtual void clearContainer() = 0;
+            virtual void clearContainer() const = 0;
 
             virtual std::string getAlgorithmName() const = 0;
 
