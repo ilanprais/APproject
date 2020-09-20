@@ -8,7 +8,7 @@
 namespace searcher {
 
     template <typename Identifier>
-    class BFSSearcher : public AbstractSearcher<Identifier> {
+    class BestFSSearcher : public AbstractSearcher<Identifier> {
 
         public:
 
@@ -18,7 +18,8 @@ namespace searcher {
                 // this proirity queue will be used for the BestFS algorithm.
                 // the best element in this priority queue will be the element which its F Score is the best.
                 // so, the elements in the priority queue will be ordered using the element F Score comparator
-                std::priority_queue<Element<Identifier>, std::vector<Element<Identifier>>, CompareByFScore<Identifier>> pqueue;
+                std::priority_queue<Element<Identifier>, std::vector<Element<Identifier>>, CompareByFScore<Identifier>> 
+                    pqueue(CompareByFScore<Identifier>(searchable.getEndElement()));
 
                 // this map will hold for every element in the path, its previous element in the path.
                 // the elements will be ordered in the map using the element Identifier comparator
