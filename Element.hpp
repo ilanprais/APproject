@@ -1,15 +1,12 @@
 #pragma once
 
-#include <utility>
-#include <cstdint>
-
 namespace searcher {
 
     template <typename Identifier>
     class Element {
 
-        const Identifier m_identifier;
-        const double m_value;
+        Identifier m_identifier;
+        double m_value;
 
         public:
 
@@ -37,16 +34,19 @@ namespace searcher {
     template <typename Identifier>
     struct CompareByIdentifier {
         
-        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) {
+        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const {
                     return e1.getIdentifier() < e2.getIdentifier();
         }
     };
 
     template <typename Identifier>
     struct CompareByFScore {
-        
-        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) {
 
-        }
+        const Element<Identifier> m_goal;
+
+        CompareByFScore(const Element<Identifier>& goal)
+        : m_goal(goal) {}
+
+        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const;
     };
 }
