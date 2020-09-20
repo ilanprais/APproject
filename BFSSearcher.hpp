@@ -9,15 +9,15 @@ namespace searcher {
     class BFSSearcher : public AbstractSearcher<Identifier> {
 
         // the queue which will be used for the BFS algorithm
-        std::queue<Element<Identifier>> queue;
+        mutable std::queue<Element<Identifier>> queue;
 
         protected:
 
-            void pushToContainer(const Element<Identifier>& element) override {
+            void pushToContainer(const Element<Identifier>& element) const override {
                 queue.push(element);
             }
 
-            const Element<Identifier>& popFromContainer() override {
+            Element<Identifier> popFromContainer() const override {
                 const Element<Identifier> popped = queue.front();
                 queue.pop();
                 return popped;
@@ -27,13 +27,13 @@ namespace searcher {
                 return queue.empty();
             }
 
-            void clearContainer() {
+            void clearContainer() const override {
                 while(!queue.empty()) {
                     queue.pop();
                 }
             }
 
-            void std::string getAlgorithmName() const {
+            std::string getAlgorithmName() const override {
                 return "BFS";
             }
     };
