@@ -16,7 +16,7 @@ namespace searcher {
             : m_identifier(identifier),
             m_value(value) {}
 
-            void calculateHeuristics(const Element<Identifier>& startPos, const const Element<Identifier>& endPos);
+            void calculateHeuristics(const Element<Identifier>& startPos, const Element<Identifier>& endPos);
 
             const Identifier& getIdentifier() const {
                 return m_identifier;
@@ -44,15 +44,15 @@ namespace searcher {
     };
 
     template <typename Identifier>
-    class CompareByIdentifier {
-        
+    struct CompareByIdentifier {
+
         bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const {
             return e1.getIdentifier() < e2.getIdentifier();
         }
     };
 
     template <typename Identifier>
-    class CompareByHScore {
+    struct CompareByHScore {
 
         bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const {
             return e1.getHScore() > e2.getHScore();
@@ -60,7 +60,7 @@ namespace searcher {
     };
 
     template <typename Identifier>
-    class CompareByFScore {
+    struct CompareByFScore {
 
         bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const {
             return e1.getGScore() + e1.getHScore() > e2.getGScore() + e2.getHScore();
