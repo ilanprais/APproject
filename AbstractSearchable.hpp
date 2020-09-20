@@ -16,8 +16,6 @@ namespace searcher {
             : m_startElement(startElement),
             m_endElement(endElement) {}
 
-            virtual ~AbstractSearchable() = default;
-
             virtual const Element<Identifier>& getStartElement() const final {
                 return m_startElement;
             }
@@ -29,5 +27,7 @@ namespace searcher {
             virtual std::vector<Element<Identifier>> getAllReachableElements(const Element<Identifier>& current) const = 0;
 
             virtual std::string getDirection(const Element<Identifier>& origin, const Element<Identifier>& destination) const = 0;
+
+            virtual ~AbstractSearchable() = default;
     };
 }

@@ -95,5 +95,7 @@ namespace searcher {
 
             virtual std::string getAlgorithmName() const = 0;
 
+            virtual ~AbstractSearcher() = default;
+
     };
 }

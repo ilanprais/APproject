@@ -18,5 +18,7 @@ namespace searcher {
             virtual std::vector<Element<Identifier>> getAllReachableElements(const Element<Identifier>& current) const = 0;
 
             virtual std::string getDirection(const Element<Identifier>& origin, const Element<Identifier>& destination) const = 0;
+
+            virtual ~Searchable() = default;
     };
 }

@@ -10,5 +10,7 @@ namespace searcher {
         public:
         
             virtual SearchResultType search(const Searchable<Identifier>& searchable) const = 0;
+
+            virtual ~Searcher() = default;
     };
 }
