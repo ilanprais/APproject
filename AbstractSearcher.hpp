@@ -2,6 +2,7 @@
 
 #include "Searcher.hpp"
 #include "SearchResult.hpp"
+#include <set>
 #include <map>
 
 namespace searcher {
@@ -11,7 +12,50 @@ namespace searcher {
 
         public:
 
-            virtual SearchResult search(const Searchable<Identifier>& searchable) const = 0;
+            virtual SearchResult search(const Searchable<Identifier>& searchable) const {
+                // clearing the container, to make sure it is empty
+                clearContainer();
+
+                // set of the visited elements
+                std::set<Element<Identifier>, CompareByIdentifier<Identifier>> visited;
+
+                // this map will hold for every element in the path, its previous element in the path.
+                // the elements will be ordered in the map using the element Identifier comparator
+                std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>> cameFrom;
+
+                // marking the start element as visited
+                visited.insert(searchable.getStartElement());
+                // adding the start element to the container
+                pushToContainer(searchable.getStartElement());
+
+                while (!isContainerEmpty()) {
+                    // popping an element from the container
+                    const Element<Identifier> current = popFromContainer();
+
+                    // in case that the popped element is the end element, then finishing the search
+                    if (current == searchable.getEndElement()) {
+                        break;
+                    }
+
+                    // else, getting all of the reachable elements of the popped element
+                    for (auto& reachable : searchable.getAllReachableElements(current)) {
+                        // if the reachable element has not been visited, then marking it as visited, 
+                        // adding it to the container, and getting its previos element in the path
+                        if (visited.find(reachable) != visited.end()) {
+                            visited.insert(reachable);
+                            pushToContainer(reachable);
+                            cameFrom.emplace(reachable, current);         
+                        }
+                    }  
+                }
+
+                // if the end element has not been visited, then the path does not exist
+                if (visited.find(searchable.getEndElement()) == visited.end()) {
+                    throw exceptions::PathDoesNotExistException();
+                }
+
+                return this->reconstructPath(searchable, cameFrom);
+            }
 
         protected:
 
@@ -36,7 +80,18 @@ namespace searcher {
                     temp = &cameFrom.at(*temp);
                 }
 
-                return SearchResult(directions, pathCost, "BFS");
+                return SearchResult(directions, pathCost, getAlgorithmName());
             }
+
+            virtual void pushToContainer(const Element<Identifier>& element) = 0;
+
+            virtual const Element<Identifier>& popFromContainer() = 0;
+
+            virtual bool isContainerEmpty() = 0;
+
+            virtual void clearContainer() = 0;
+
+            virtual std::string getAlgorithmName() = 0;
+
     };
 }
