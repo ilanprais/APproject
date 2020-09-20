@@ -59,7 +59,8 @@ namespace searcher {
 
         protected:
 
-            virtual SearchResult reconstructPath(const Searchable<Identifier>& searchable, 
+            virtual SearchResult reconstructPath(
+                const Searchable<Identifier>& searchable,
                 std::map<Element<Identifier>, Element<Identifier>, CompareByIdentifier<Identifier>>& cameFrom) const {
 
                 // this vector will hold the directions of the path from the start element to the end element
@@ -87,11 +88,11 @@ namespace searcher {
 
             virtual const Element<Identifier>& popFromContainer() = 0;
 
-            virtual bool isContainerEmpty() = 0;
+            virtual bool isContainerEmpty() const = 0;
 
             virtual void clearContainer() = 0;
 
-            virtual std::string getAlgorithmName() = 0;
+            virtual std::string getAlgorithmName() const = 0;
 
     };
 }
