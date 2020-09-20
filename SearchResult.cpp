@@ -11,13 +11,10 @@ namespace searcher {
     
         std::string stringRepresentation = "";
 
-        stringRepresentation += std::to_string(m_cost) + "," + m_algorithmName + ",";
+        stringRepresentation += std::to_string(m_cost) + ",";
 
         for (size_t i = 0; i < m_directions.size(); i++) {
-            stringRepresentation += m_directions[i];
-            if (i != m_directions.size() - 1) {
-                stringRepresentation += ",";
-            }
+            stringRepresentation += "," + m_directions[i];
         }
 
         return stringRepresentation;
