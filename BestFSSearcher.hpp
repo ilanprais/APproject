@@ -9,8 +9,8 @@ namespace searcher {
     class BestFSSearcher : public AbstractSearcher<Identifier> {
 
         // the proirity queue which will be used for the BestFS algorithm.
-        // the best element in the priority queue will be the element which its F Score is the best.
-        // so, the elements in the priority queue will be ordered using the element F Score comparator
+        // the best element in the priority queue will be the element which its H Score is the best.
+        // so, the elements in the priority queue will be ordered using the element H Score comparator
         std::priority_queue<Element<Identifier>, std::vector<Element<Identifier>>, CompareByHScore<Identifier>> pqueue;
 
         protected:
