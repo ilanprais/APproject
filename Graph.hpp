@@ -17,7 +17,7 @@ namespace searcher {
 
         public:
 
-            Graph(const matrix::Matrix& graphMatrix, const pair& startLocation, const pair& endLocation);
+            Graph(const matrix::Matrix& graphMatrix, const pair& startPos, const pair& endPos);
             
             std::vector<graphElement> getAllReachableElements(const graphElement& current) const override;
 

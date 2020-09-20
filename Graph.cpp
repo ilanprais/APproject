@@ -2,9 +2,9 @@
 
 namespace searcher {
 
-    Graph::Graph(const matrix::Matrix& graphMatrix, const pair& startLocation, const pair& endLocation)
-    : AbstractSearchable(graphElement(startLocation, graphMatrix(startLocation.first, startLocation.second)), 
-    graphElement(endLocation, graphMatrix(endLocation.first, endLocation.second))), 
+    Graph::Graph(const matrix::Matrix& graphMatrix, const pair& startPos, const pair& endPos)
+    : AbstractSearchable(graphElement(startPos, graphMatrix(startPos.first, startPos.second)), 
+    graphElement(endPos, graphMatrix(endPos.first, endPos.second))), 
     m_graphMatrix(graphMatrix) {}
 
     std::vector<graphElement> Graph::getAllReachableElements(const graphElement& current) const {
@@ -19,7 +19,10 @@ namespace searcher {
         if (colIdx > 0) {
             // checking if the element in the left actually exists
             if (m_graphMatrix(rowIdx, colIdx - 1) != 0) {
-                reachables.push_back(graphElement(pair(rowIdx, colIdx - 1), m_graphMatrix(rowIdx, colIdx - 1)));
+                // creating the left element and calculating its heuristics
+                graphElement left(pair(rowIdx, colIdx - 1), m_graphMatrix(rowIdx, colIdx - 1));
+                left.calculateHeuristics(getStartElement(), getEndElement());
+                reachables.push_back(left);
             }
         }
 
@@ -27,7 +30,10 @@ namespace searcher {
         if (colIdx < m_graphMatrix.getWidth() - 1) {
             // checking if the element in the right actually exists
             if (m_graphMatrix(rowIdx, colIdx + 1) != 0) {
-                reachables.push_back(graphElement(pair(rowIdx, colIdx + 1), m_graphMatrix(rowIdx, colIdx + 1)));
+                // creating the right element and calculating its heuristics
+                graphElement right(pair(rowIdx, colIdx + 1), m_graphMatrix(rowIdx, colIdx + 1));
+                right.calculateHeuristics(getStartElement(), getEndElement());
+                reachables.push_back(right);
             }
         }
 
@@ -35,7 +41,10 @@ namespace searcher {
         if (rowIdx > 0) {
             // checking if the element above actually exists
             if (m_graphMatrix(rowIdx - 1, colIdx) != 0) {
-                reachables.push_back(graphElement(pair(rowIdx - 1, colIdx), m_graphMatrix(rowIdx - 1, colIdx)));
+                // creating the element above and calculating its heuristics
+                graphElement up(pair(rowIdx - 1, colIdx), m_graphMatrix(rowIdx - 1, colIdx));
+                up.calculateHeuristics(getStartElement(), getEndElement());
+                reachables.push_back(up);
             }
         }
 
@@ -43,7 +52,9 @@ namespace searcher {
         if (rowIdx < m_graphMatrix.getHeight() - 1) {
             // checking if the element below actually exists
             if (m_graphMatrix(rowIdx + 1, colIdx) != 0) {
-                reachables.push_back(graphElement(pair(rowIdx + 1, colIdx), m_graphMatrix(rowIdx + 1, colIdx)));
+                graphElement down(pair(rowIdx + 1, colIdx), m_graphMatrix(rowIdx + 1, colIdx));
+                down.calculateHeuristics(getStartElement(), getEndElement());
+                reachables.push_back(down);
             }
         }
 
