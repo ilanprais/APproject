@@ -7,6 +7,8 @@ namespace searcher {
 
         Identifier m_identifier;
         double m_value;
+        double m_gScore;
+        double m_hScore;
 
         public:
 
@@ -14,12 +16,22 @@ namespace searcher {
             : m_identifier(identifier),
             m_value(value) {}
 
+            void calculateHeuristics(const Element<Identifier>& startPos, const const Element<Identifier>& endPos);
+
             const Identifier& getIdentifier() const {
                 return m_identifier;
             }
 
             double getValue() const {
                 return m_value;
+            }
+
+            double getGScore() const {
+                return m_gScore;
+            }
+
+            double getHScore() const {
+                return m_hScore;
             }
 
             bool operator==(const Element<Identifier>& other) const {
@@ -35,18 +47,23 @@ namespace searcher {
     class CompareByIdentifier {
         
         bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const {
-                    return e1.getIdentifier() < e2.getIdentifier();
+            return e1.getIdentifier() < e2.getIdentifier();
+        }
+    };
+
+    template <typename Identifier>
+    class CompareByHScore {
+
+        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const {
+            return e1.getHScore() > e2.getHScore();
         }
     };
 
     template <typename Identifier>
     class CompareByFScore {
 
-        const Element<Identifier> m_goal;
-
-        CompareByFScore(const Element<Identifier>& goal)
-        : m_goal(goal) {}
-
-        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const;
+        bool operator()(const Element<Identifier>& e1, const Element<Identifier>& e2) const {
+            return e1.getGScore() + e1.getHScore() > e2.getGScore() + e2.getHScore();
+        }
     };
 }
