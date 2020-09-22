@@ -22,5 +22,9 @@ namespace searcher {
             std::vector<graphElement> getAllReachableElements(const graphElement& current) const override;
 
             std::string getDirection(const graphElement& origin, const graphElement& destination) const override;
+
+        protected:
+
+            bool isValidElement(const graphElement& element) const override;
     };
 }
