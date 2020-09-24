@@ -48,7 +48,9 @@ namespace searcher {
              *      in this case, can be: left, right, up, down.
              */
             std::string getDirection(const graphElement& origin, const graphElement& destination) const override;
-
+uint32_t getSize() const override {
+    return m_graphMatrix.getHeight() * m_graphMatrix.getWidth();
+}
         protected:
 
             /**

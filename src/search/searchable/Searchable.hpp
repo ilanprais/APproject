@@ -46,7 +46,7 @@ namespace searcher {
              * @return std::string a string that represents the direction from origin to destination
              */
             virtual std::string getDirection(const Element<Identifier>& origin, const Element<Identifier>& destination) const = 0;
-
+virtual uint32_t getSize() const = 0;
             /**
              * @brief Virtual destructor
              * 

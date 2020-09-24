@@ -6,6 +6,7 @@
 #include "../cachemanager/SolverOperation.hpp"
 #include "../exceptions/StatusException.hpp"
 #include "../cachemanager/util/HashUtil.hpp"
+#include <iostream>
 
 namespace server_side {
 
@@ -123,7 +124,8 @@ namespace server_side {
                             m_cache.load(operation::SolverOperation(hashCode, solutionString));
                         } catch(const status_exception::StatusException& e){
                             status = e.getStatus();
-                        } catch (...) {
+                        } catch (std::runtime_error e) {
+                            std::cerr << e.what() << std::endl;
                             status = 5;
                         }
                     }
@@ -132,7 +134,7 @@ namespace server_side {
                     if (status == 0) {
                         // send success message
                         try {
-                            writeSock(clientSocket, getLog(status, solutionString.size()) + "\r\n" + solutionString);
+                            writeSock(clientSocket, solutionString);
                         } catch (...) {}
 
                         try {

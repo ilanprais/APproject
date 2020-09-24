@@ -18,7 +18,7 @@ namespace searcher {
     class AbstractSearcher : public Searcher<SearchResult, Identifier> {
 
         // the number of the evaluated elements
-        uint32_t m_evaluatedElements;
+        mutable uint32_t m_evaluatedElements;
 
         public:
 
@@ -117,7 +117,7 @@ namespace searcher {
                     temp = &cameFrom.at(*temp);
                 }
 
-                return SearchResult(directions, pathCost, getAlgorithmName());
+                return SearchResult(searchable.getSize(), m_evaluatedElements, pathCost);
             }
 
             /**
